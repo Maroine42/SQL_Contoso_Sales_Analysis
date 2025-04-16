@@ -1,42 +1,42 @@
-# Contoso Sales Analysis
+# Analyse des Ventes Contoso
 
-## Overview
+## Vue d’ensemble
 
-Welcome to my analysis of customer behavior, retention, and lifetime value for an e-commerce company to improve customer retention and maximize revenue.
+Bienvenue dans mon analyse du comportement client, de la rétention et de la valeur client à long terme pour une entreprise de e-commerce, dans le but d’améliorer la fidélisation et de maximiser les revenus.
 
-For this project, I am using the Contoso dataset, a sample database provided by Microsoft that simulates data from a fictional multinational company, Contoso Ltd. The dataset is widely used for learning and demonstrating SQL skills, business intelligence, and data analysis techniques.
+Pour ce projet, j’utilise le jeu de données Contoso, une base de données d'exemple fournie par Microsoft qui simule les données d'une entreprise multinationale fictive, Contoso Ltd. Ce dataset est largement utilisé pour l’apprentissage et la démonstration de compétences en SQL, en business intelligence et en analyse de données.
 
-It contains a wide range of realistic business data, including:
+Il contient un large éventail de données métier réalistes, notamment :
 
-- Sales (orders, customers, territories, stores)
+- Ventes : commandes, clients, zones géographiques, points de vente
 
-- Products (categories, subcategories, product details)
+- Produits : catégories, sous-catégories, informations produits
 
-- Finance (revenues, costs, profits)
+- Finance : revenus, coûts, bénéfices
 
-- Time (date and time dimensions for reporting)
+- Temps : dimensions temporelles (date et heure) utiles pour le reporting
 
-Using this dataset allows me to work with complex queries, explore business metrics, and practice transforming raw data into meaningful insights.
+Ce dataset me permet de travailler avec des requêtes complexes, d'explorer des indicateurs business, et de transformer des données brutes en analyses pertinentes.
 
-## Business Questions
+## Problématiques Métier
 
-1. Customer Segmentation: Who are our most valuable customers ?
+1. Segmentation client : Qui sont nos clients les plus précieux ?
 
-2. Cohort Analysis: How do different customer groups generate revenue ?
+2. Analyse par cohorte : Comment les différents groupes de clients génèrent-ils du chiffre d'affaires ?
 
-3. Retention Analysis: Which customers haven't purchased recently ?
+3. Analyse de rétention : Quels sont les clients qui n’ont pas effectué d’achat récemment ?
 
-## Tools I Used
+## Outils Utilisés
 
-1. PostgreSQL: Used as the main database system to store and manage the Contoso dataset.
+1. PostgreSQL : Utilisé comme système principal de gestion de base de données pour héberger le dataset Contoso.
 
-2. DBeaver: Served as the database client for writing and executing SQL queries.
+2. DBeaver : Utilisé comme client SQL pour l’écriture et l’exécution des requêtes.
 
-3. Visual Studio Code: Used for editing SQL scripts and documenting the project.
+3. Visual Studio Code : Servi à rédiger les scripts SQL et documenter le projet.
 
-4. Git: Used for version control and tracking changes throughout the development of the project.
+4. Git : Utilisé pour le versioning et le suivi des modifications tout au long du projet.
 
-# The View
+# La Vue SQL
 
 ```sql
 CREATE VIEW cleaned_customer AS
@@ -76,45 +76,44 @@ SELECT
 FROM cohort_data cd;
 ```
 
-## Importance of Views in SQL
+## Importance des Vues en SQL
 
 1. Abstraction & Simplification
 
-Views allow you to hide complex SQL logic behind a simple interface. Instead of repeating joins, calculations, or window functions every time, you create the view once and query it like a table.
+Les vues permettent de masquer une logique SQL complexe derrière une interface simple. Plutôt que de répéter des jointures, calculs ou fonctions de fenêtrage à chaque requête, on crée une vue une seule fois et on l’interroge comme une table.
 
-2. Code Reusability
+2. Réutilisabilité du Code
 
-A well-designed view like cleaned_customer can be reused across multiple reports, dashboards, or analytics jobs. It centralizes logic such as cohort analysis and revenue calculation, making your codebase DRY (Don’t Repeat Yourself).
+Une vue bien conçue, comme cleaned_customer, peut être réutilisée dans plusieurs rapports, tableaux de bord ou analyses. Elle centralise la logique (analyse par cohorte, calcul de revenus, etc.) et permet de garder un code DRY (Don’t Repeat Yourself).
 
-3. Security and Access Control
+3. Sécurité et Contrôle d’Accès
 
-You can expose only specific columns or rows via views, restricting access to sensitive data while still allowing analysis. For instance, if your customer table contains sensitive identifiers, a view can mask them.
+Les vues permettent de limiter l’accès à certaines colonnes ou lignes. Cela permet de protéger les données sensibles tout en offrant des possibilités d’analyse. Par exemple, si une table clients contient des identifiants confidentiels, une vue peut les masquer.
 
-4. Data Consistency
+4. Cohérence des Données
 
-Views ensure consistent logic. For instance, the revenue computation logic (SUM(quantity * netprice * exchangerate)) will always be consistent wherever the view is used.
+Les vues garantissent une logique uniforme. Par exemple, si la formule de calcul du revenu est SUM(quantity * netprice * exchangerate), elle sera toujours appliquée de la même manière partout où la vue est utilisée.
 
-5. Performance Optimization
+5. Optimisation des Performances
 
-Although not always faster, views can be optimized if used with materialized views (where supported). Even regular views can help guide the optimizer by simplifying complex queries.
+Bien que les vues ne soient pas toujours plus rapides, elles peuvent l’être si on utilise des materialized views (vues matérialisées), lorsque cela est possible. Même les vues classiques peuvent aider l’optimiseur de requêtes en simplifiant la logique.
 
-6. Maintainability
+6. Facilité de Maintenance
 
-When business logic changes (e.g., how net revenue is calculated), updating the view in one place updates all dependent queries. That’s a huge win for long-term maintenance.
+Quand la logique métier évolue (ex. : modification du calcul du revenu net), il suffit de mettre à jour la vue une seule fois pour que toutes les requêtes dépendantes soient automatiquement à jour. C’est un vrai gain en maintenance à long terme.
 
 
+## Démarche d’Analyse
 
-## Analysis Approach
+## 1. Analyse de la Segmentation Client
 
-## 1. Customer Segmentation Analysis
+- Classement des clients selon leur LTV (Lifetime Value – LTV)
 
-- Categorized customers based on total lifetime value (LTV)
+- Attribution des clients à trois segments : valeur élevée, intermédiaire, faible
 
-- Assigned customers to High, Mid, and Low-value segments
+- Calcul des indicateurs clés : chiffre d’affaires total
 
-- Calculated key metrics: total revenue
-
-## The Query
+## Requête SQL
 
 ```sql
 WITH customer_ltv AS (
@@ -154,36 +153,36 @@ ORDER BY
 	customer_segment DESC
 ```
 
-## Visualization
+## Visualisation
 
 ![Value Customers](images/1_customer_segementation.png)
-*Customer Segmentation by Lifetime Value (LTV): High, Mid, and Low-Value Distribution.*
+*Segmentation Client par Valeur à Vie (LTV) : Répartition des Segments Élevé, Moyen et Faible.*
 
-### Key Findings
+### Résultats Clés
 
-- High-value segment (25% of customers) drives 66% of revenue ($135.4M)
+- Le segment à haute valeur (25 % des clients) génère 66 % des revenus (135,4 M$)
 
-- Mid-value segment (50% of customers) generates 32% of revenue ($66.6M)
+- Le segment à valeur moyenne (50 % des clients) génère 32 % des revenus (66,6 M$)
 
-- Low-value segment (25% of customers) accounts for 2% of revenue ($4.3M)
+- Le segment à faible valeur (25 % des clients) représente 2 % des revenus (4,3 M$)
 
-### Business Insights
+### Informations Métier
 
-- High-Value (66% revenue): Offer premium membership program to 12,372 VIP customers, as losing one customer significantly impacts revenue
+- Haute Valeur (66 % des revenus) : Proposer un programme d'adhésion premium aux 12 372 clients VIP, car perdre un client a un impact significatif sur les revenus.
 
-- Mid-Value (32% revenue): Create upgrade paths through personalized promotions, with potential $66.6M → $135.4M revenue opportunity
+- Valeur Moyenne (32 % des revenus) : Créer des parcours de mise à niveau grâce à des promotions personnalisées, avec un potentiel de revenus allant de 66,6 M$ à 135,4 M$.
 
-- Low-Value (2% revenue): Design re-engagement campaigns and price-sensitive promotions to increase purchase frequency
+- Faible Valeur (2 % des revenus) : Concevoir des campagnes de réengagement et des promotions sensibles au prix pour augmenter la fréquence d'achat.
 
-## 2. Cohort Analysis
+## 2. Analyse par Cohorte
 
-- Tracked revenue and customer count per cohorts
+- Suivi des revenus et du nombre de clients par cohorte
 
-- Cohorts were grouped by year of first purchase
+- Les cohortes ont été regroupées selon l'année du premier achat
 
-- Analyzed customer retention at a cohort level
+- Analyse de la rétention des clients au niveau des cohortes
 
-## The Query
+## Requête SQL
 
 ```sql
 SELECT 
@@ -197,28 +196,30 @@ GROUP BY
 	cohort_year
 ```
 
-## Visualization
+## Visualisation
 
 ![Cohort Analysis](images\2_cohort_analysis.png)
-*Customer Revenue Trends by Cohort Year (Adjusted for Time in Market)*
+*Tendances des Revenus Clients par Année de Cohorte (Ajustées en Fonction du Temps sur le Marché)*
 
-### Key Findings
+### Résultats Clés
 
-- Revenue per customer shows an alarming decreasing trend over time 
-    - 2022-2024 cohorts are consistently performing worse than earlier cohorts
-    - NOTE: Although net revenue is increasing, this is likely due to a larger customer base, which is not reflective of customer value
+- Les revenus par client montrent une tendance alarmante de baisse au fil du temps
 
-### Business Insights
+    - Les cohortes de 2022-2024 affichent des performances systématiquement inférieures à celles des cohortes précédentes
 
-- Value extracted from customers is decreasing over time and needs further investigation.
+    - Remarque : Bien que les revenus nets augmentent, cela est probablement dû à une base de clients plus large, ce qui ne reflète pas nécessairement la valeur des clients.
 
-- In 2023 we saw a drop in number of customers acquired, which is concerning.
+### Informations Métier
 
-- With both lowering LTV and decreasing customer acquisition, the company is facing a potential revenue decline.
+- La valeur extraite des clients diminue avec le temps et nécessite une investigation plus approfondie.
 
-## 3. Customer Retention
+- En 2023, nous avons observé une baisse du nombre de clients acquis, ce qui est préoccupant.
 
-## The Query
+- Avec une baisse de la LTV et une diminution de l'acquisition de clients, l'entreprise pourrait être confrontée à un déclin des revenus.
+
+## 3. Rétention Client
+
+## Requête SQL
 
 ```sql
 WITH customer_last_purchase AS (
@@ -255,89 +256,88 @@ FROM inactive_customers
 GROUP BY cohort_year, customer_status
 ```
 
-- Identified customers at risk of churning
+- Identification des clients à risque d'inactivité
 
-- Analyzed last purchase patterns
+- Analyse des comportements d'achat récents
 
-- Calculated customer-specific metrics
+- Calcul des indicateurs spécifiques aux clients : Tendances de la rétention client vs. inactivité par année de cohorte
 
-## Visualization
+## Visualisation
 
 ![Retention](images\3_customer_churn_cohort_year.png)
-*Trends in Customer Retention vs. Churn by Cohort Year*
+*Tendances de la Rétention Client vs. Inactivité par Année de Cohorte*
 
-### Key Findings
+### Résultats Clés
 
-- Cohort churn stabilizes at ~90% after 2-3 years, indicating a predictable long-term retention pattern.
+- Le taux de d'inactivité des cohortes se stabilise autour de 90 % après 2-3 ans, ce qui indique un modèle de rétention à long terme prévisible.
 
-- Retention rates are consistently low (8-10%) across all cohorts, suggesting retention issues are systemic rather than specific to certain years.
+- Les taux de rétention sont systématiquement faibles (8-10 %) pour toutes les cohortes, suggérant que les problèmes de rétention sont structurels et non spécifiques à certaines années.
 
-- Newer cohorts (2022-2023) show similar churn trajectories, signaling that without intervention, future cohorts will follow the same pattern.
+- Les cohortes récentes (2022-2023) montrent des trajectoires de désabonnement similaires, ce qui indique qu’en l'absence d’intervention, les futures cohortes suivront le même modèle.
 
-### Business Insights
+### Informations Métier
 
-- Strengthen early engagement strategies to target the first 1-2 years with onboarding incentives, loyalty rewards, and personalized offers to improve long-term retention.
+- Renforcer les stratégies d’engagement précoce pour cibler les 1-2 premières années avec des incitations à l’intégration, des récompenses de fidélité et des offres personnalisées afin d’améliorer la rétention à long terme.
 
+- Réengager les clients à forte valeur ayant abandonné en se concentrant sur des campagnes ciblées de reconquête plutôt que sur des efforts de rétention généraux, car réactiver des utilisateurs précieux peut offrir un meilleur retour sur investissement (ROI).
 
-- Re-engage high-value churned customers by focusing on targeted win-back campaigns rather than broad retention efforts, as reactivating valuable users may yield higher ROI.
+- Prédire et prévenir le risque de d'inactivité en utilisant des indicateurs d'alerte spécifiques aux clients pour intervenir de manière proactive auprès des utilisateurs à risque avant qu’ils ne se désabonnent.
 
-- Predict & preempt churn risk and use customer-specific warning indicators to proactively intervene with at-risk users before they lapse.
+# Recommandations Stratégiques
 
-# Strategic Recommendations
+1. Optimisation de la Valeur Client (Segmentation Client)
 
-1. Customer Value Optimization (Customer Segmentation)
+    - Lancer un programme VIP pour 12 372 clients à forte valeur (66 % des revenus).
 
-    - Launch VIP program for 12,372 high-value customers (66% revenue)
+    - Créer des parcours de mise à niveau personnalisés pour le segment de valeur moyenne (potentiel de revenus de 66,6 M$ → 135,4 M$).
 
-    - Create personalized upgrade paths for mid-value segment ($66.6M → $135.4M opportunity)
+    - Concevoir des promotions sensibles au prix pour le segment à faible valeur afin d’augmenter la fréquence d'achat.
 
-    - Design price-sensitive promotions for low-value segment to increase purchase frequency
+2. Stratégie de Performance des Cohortes (Revenus Clients par Cohorte)
 
-2. Cohort Performance Strategy (Customer Revenue by Cohort)
+    - Cibler les cohortes 2022-2024 avec des offres personnalisées de réengagement.
 
-    - Target 2022-2024 cohorts with personalized re-engagement offers
+    - Mettre en place des programmes de fidélité/abonnement pour stabiliser les fluctuations des revenus.
 
-    - Implement loyalty/subscription programs to stabilize revenue fluctuations
+    - Appliquer les stratégies réussies des cohortes 2016-2018 à forte dépense aux nouveaux clients.
 
-    - Apply successful strategies from high-spending 2016-2018 cohorts to newer customers
+3. Rétention & Prévention du Désabonnement (Rétention Client)
 
-3. Retention & Churn Prevention (Customer Retention)
+    - Renforcer l’engagement des 1-2 premières années avec des incitations à l’intégration et des récompenses de fidélité.
 
-    - Strengthen first 1-2 year engagement with onboarding incentives and loyalty rewards
+    - Se concentrer sur des campagnes ciblées de reconquête pour les clients à forte valeur ayant abandonné.
 
-    - Focus on targeted win-back campaigns for high-value churned customers
+    - Mettre en place un système d’intervention proactive pour les clients à risque avant qu’ils ne se désabonnent.
 
-    - Implement proactive intervention system for at-risk customers before they lapse
+# Ce que J'ai Appris
 
-# What I Learned
+1. Création de Requêtes Avancées & Modélisation de Données
 
-1. Advanced Query Building & Data Modeling
+J'ai renforcé ma capacité à rédiger des requêtes SQL complexes en utilisant des CTE (Common Table Expressions), des fonctions de fenêtrage et des agrégations. La création de vues réutilisables comme cleaned_customer montre également ma compréhension de la modélisation des données et de la manière de structurer les requêtes pour plus de clarté et de réutilisabilité.
 
-I strengthened your ability to write complex SQL queries using CTEs (Common Table Expressions), window functions, and aggregations. Creating reusable views like cleaned_customer also shows your understanding of data modeling and how to structure queries for clarity and reusability.
+2. Pensée Analytique dans un Contexte Métier
 
-2. Analytical Thinking with Business Context
+J'ai appris à traduire des questions métier en logique SQL, comme identifier les clients ayant abandonné ou calculer les segments clients par LTV. Cela démontre ma capacité à transformer des données brutes en informations exploitables, une compétence clé pour tout rôle d’analyste de données ou BI.
 
-I learned how to translate business questions into SQL logic, like identifying churned customers or calculating customer segments by LTV. This demonstrates your skill in turning raw data into actionable insights, which is key for any data analyst or BI role.
+3. Techniques de Nettoyage & Cohérence des Données
 
-3. Data Cleaning & Consistency Techniques
+J'ai pratiqué le nettoyage et la standardisation des données directement en SQL, comme la mise en forme des noms de clients, la gestion des valeurs NULL avec COALESCE, et l’assurance de calculs cohérents pour les revenus. Ces compétences sont essentielles pour garantir la qualité et la cohérence des données à travers les rapports et tableaux de bord.
 
-I practiced cleaning and standardizing data directly in SQL—like formatting customer names, handling NULLs with COALESCE, and ensuring consistent calculations for revenue. These skills are essential for ensuring data quality and consistency across reports and dashboards.
+# Défis Rencontrés
 
-# Challenges I Faced
+- Complexité des Données & Relations : Le dataset Contoso contient plusieurs tables interconnectées (ventes, clients, produits, finance, temps), ce qui nécessitait une compréhension approfondie des relations entre les tables et des clés étrangères pour joindre les données avec précision sans duplication ni perte d’informations.
 
-- Data Complexity & Relationships : The Contoso dataset contains multiple interconnected tables (sales, customers, products, finance, time), which required a deep understanding of table relationships and foreign keys to join data accurately without duplication or loss of information.
+- Gestion des Données Incomplètes ou Manquantes : Le dataset Contoso contient plusieurs tables interconnectées (ventes, clients, produits, finance, temps), ce qui nécessitait une compréhension approfondie des relations entre les tables et des clés étrangères pour joindre les données avec précision sans duplication ni perte d’informations.
 
-- Handling Inconsistent or Missing Data : The Contoso dataset contains multiple interconnected tables (sales, customers, products, finance, time), which required a deep understanding of table relationships and foreign keys to join data accurately without duplication or loss of information.
-
-- Translating Data into Actionable Insights : Turning SQL query results into meaningful business insights was challenging. It required not just technical execution but also the ability to interpret trends and propose data-driven strategies for customer retention and revenue growth.
+- Traduire les Données en Informations Exploitables : Transformer les résultats des requêtes SQL en informations commerciales significatives a été un défi. Cela a exigé non seulement une exécution technique mais aussi la capacité d’interpréter les tendances et de proposer des stratégies basées sur les données pour la rétention des clients et la croissance des revenus.
 
 # Conclusion 
 
-This project allowed me to apply advanced SQL techniques to analyze real-world business challenges using the Contoso dataset. By exploring customer segmentation, cohort behavior, and retention patterns, I was able to generate actionable insights to support strategic decision-making around customer value optimization and churn prevention.
+Ce projet m'a permis d'appliquer des techniques SQL avancées pour analyser des défis commerciaux réels en utilisant le dataset Contoso. En explorant la segmentation client, le comportement des cohortes et les tendances de rétention, j’ai pu générer des informations exploitables pour soutenir la prise de décisions stratégiques autour de l’optimisation de la valeur client et de la prévention du désabonnement.
 
-Through this analysis, I deepened my skills in data modeling, query optimization, and business-oriented thinking. More importantly, I reinforced the importance of clean, well-structured SQL code and its role in transforming complex datasets into meaningful narratives that drive business growth.
+Grâce à cette analyse, j'ai approfondi mes compétences en modélisation de données, optimisation des requêtes et réflexion orientée métier. Plus important encore, j’ai renforcé l’importance d’un code SQL propre et bien structuré et son rôle dans la transformation de jeux de données complexes en récits significatifs qui favorisent la croissance de l’entreprise.
 
-This experience not only strengthened my technical foundation but also enhanced my ability to think critically and communicate data-driven insights effectively.
+Cette expérience a non seulement renforcé ma base technique, mais elle a aussi amélioré ma capacité à réfléchir de manière critique et à communiquer efficacement des informations basées sur les données.
 
 
 
