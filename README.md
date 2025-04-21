@@ -199,7 +199,7 @@ GROUP BY
 
 ## Visualization
 
-![Cohort Analysis](images\2_cohort_analysis.png)
+![Cohort Analysis](images/2_cohort_analysis.png)
 *Customer Revenue Trends by Cohort Year (Adjusted for Time in Market)*
 
 ### Key Findings
@@ -263,7 +263,7 @@ GROUP BY cohort_year, customer_status
 
 ## Visualization
 
-![Retention](images\3_customer_churn_cohort_year.png)
+![Retention](images/3_customer_churn_cohort_year.png)
 *Trends in Customer Retention vs. Churn by Cohort Year*
 
 ### Key Findings
