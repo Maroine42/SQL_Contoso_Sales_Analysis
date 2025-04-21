@@ -198,7 +198,7 @@ GROUP BY
 
 ## Visualisation
 
-![Cohort Analysis](images\2_cohort_analysis.png)
+![Cohort Analysis](images/2_cohort_analysis.png)
 *Tendances des Revenus Clients par Année de Cohorte (Ajustées en Fonction du Temps sur le Marché)*
 
 ### Résultats Clés
@@ -264,7 +264,7 @@ GROUP BY cohort_year, customer_status
 
 ## Visualisation
 
-![Retention](images\3_customer_churn_cohort_year.png)
+![Retention](images/3_customer_churn_cohort_year.png)
 *Tendances de la Rétention Client vs. Inactivité par Année de Cohorte*
 
 ### Résultats Clés
